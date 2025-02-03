@@ -70,11 +70,19 @@ export class UsersService {
     });
   }
 
-  findOneByEmail(email: string) {
+  findOneByEmail(email: string, sensitiveInfo = false) {
     return this.prisma.user.findFirst({
       where: {
         email,
         isDeleted: false,
+      },
+      select: {
+        email: true,
+        id: true,
+        name: true,
+        role: true,
+        isVerified: true,
+        password: sensitiveInfo,
       },
     });
   }
