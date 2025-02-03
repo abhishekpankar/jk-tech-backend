@@ -45,6 +45,10 @@ model Blog {
   about           String?
   brief           String
   addedBy         Int
+  comments        Json?
+  likes           Json?
+  shares          Json?
+  views           Json?
   isDeleted       Boolean       @default(false)
   createdAt       DateTime      @default(now())
   updatedAt       DateTime      @updatedAt()
