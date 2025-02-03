@@ -6,7 +6,8 @@ import { serverConfig, validate } from './configurations';
 import { AuthModule } from './modules/auth/auth.module';
 import { UsersModule } from './modules/users/users.module';
 import { appConfig } from './configurations/app.config';
-import { APP_PIPE } from '@nestjs/core';
+import { APP_GUARD, APP_PIPE } from '@nestjs/core';
+import { JwtGuard } from './modules/auth/guards/auth.guard';
 
 @Module({
   imports: [
@@ -32,6 +33,10 @@ import { APP_PIPE } from '@nestjs/core';
         forbidUnknownValues: true,
         forbidNonWhitelisted: true,
       }),
+    },
+    {
+      provide: APP_GUARD,
+      useClass: JwtGuard,
     },
   ],
 })
