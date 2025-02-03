@@ -4,12 +4,16 @@ import {
   Post,
   HttpCode,
   HttpStatus,
+  Get,
+  UseGuards,
 } from '@nestjs/common';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiExcludeEndpoint, ApiTags } from '@nestjs/swagger';
 import { messagesConstant } from 'src/common/constants/messages.constant';
-import { Public } from 'src/common/decorators';
+import { Public, User } from 'src/common/decorators';
+import { UsersService } from 'src/modules/users/users.service';
 import { AuthService } from './auth.service';
 import { LoginDto } from './dto/login.dto';
+import { GoogleOAuthGuard } from './guards/google-oauth.guard';
 
 @Controller({
   path: 'auth',
@@ -17,7 +21,10 @@ import { LoginDto } from './dto/login.dto';
 })
 @ApiTags('Auth')
 export class AuthController {
-  constructor(private readonly authService: AuthService) {} // private readonly userService: UsersService, // private readonly oAuthService: OAuthService,
+  constructor(
+    private readonly authService: AuthService,
+    private readonly userService: UsersService,
+  ) {}
 
   @Public()
   @HttpCode(HttpStatus.OK)
@@ -31,4 +38,30 @@ export class AuthController {
     };
   }
 
+  @Public()
+  @UseGuards(GoogleOAuthGuard)
+  @Get('google/login')
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
+  async oAuthLogin() {}
+
+  @UseGuards(GoogleOAuthGuard)
+  @ApiExcludeEndpoint()
+  @Public()
+  @Get('google/redirect')
+  async oAuthRedirect(@User() googleUser: Record<string, string>) {
+    const user = await this.userService.findOneByEmail(googleUser.email);
+    let userId: number = user?.id;
+    if (!user) {
+      const user = await this.userService.saveOAuthUser(
+        googleUser.email,
+        googleUser.name,
+        true,
+      );
+      userId = user.id;
+    }
+    const access_token = await this.authService.signJwt(userId);
+    return {
+      access_token,
+    };
+  }
 }
