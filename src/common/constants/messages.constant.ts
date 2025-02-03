@@ -8,4 +8,11 @@ export const messagesConstant = {
   USER_NOT_FOUND: 'User not found',
   USER_DELETED: 'User Deleted',
   USER_UPDATED: 'User Updated',
+  BLOGS_FETCHED: 'Blogs Fetched',
+  BLOG_FETCHED: 'Blogs Fetched',
+  ADD_BLOG_RESPONSE: 'Blog Added',
+  BLOG_ALREADY_EXISTS: 'Blog already exists',
+  BLOG_NOT_FOUND: 'Blog not found',
+  BLOG_DELETED: 'Blog Deleted',
+  BLOG_UPDATED: 'Blog Updated',
 };
