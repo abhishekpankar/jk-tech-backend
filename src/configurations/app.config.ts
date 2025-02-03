@@ -22,6 +22,12 @@ export const appConfig = () => ({
     },
     defaultRoleId: 3,
   },
+  blogs: {
+    findAll: {
+      limit: 10,
+    },
+    defaultRoleId: 3,
+  },
 });
 
 export type AppConfig = ReturnType<typeof appConfig>;
