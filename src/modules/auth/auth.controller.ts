@@ -8,7 +8,6 @@ import {
   UseGuards,
 } from '@nestjs/common';
 import { ApiExcludeEndpoint, ApiTags } from '@nestjs/swagger';
-import { messagesConstant } from 'src/common/constants/messages.constant';
 import { Public, User } from 'src/common/decorators';
 import { UsersService } from 'src/modules/users/users.service';
 import { AuthService } from './auth.service';
@@ -32,10 +31,7 @@ export class AuthController {
   async login(@Body() payload: LoginDto) {
     const { email, password } = payload;
     const result = await this.authService.login(email, password);
-    return {
-      result,
-      message: messagesConstant.LOGIN_RESPONSE,
-    };
+    return result;
   }
 
   @Public()

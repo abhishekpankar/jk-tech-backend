@@ -1,5 +1,4 @@
 export const messagesConstant = {
-  LOGIN_RESPONSE: 'Login Successful',
   USERS_FETCHED: 'Users Fetched',
   USER_FETCHED: 'Users Fetched',
   ADD_USER_RESPONSE: 'User Added',
