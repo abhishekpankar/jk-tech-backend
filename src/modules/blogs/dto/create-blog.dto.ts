@@ -7,7 +7,7 @@ import {
 } from 'class-validator';
 
 export class CreateBlogDto {
-  @MaxLength(30)
+  @MaxLength(100)
   @MinLength(2)
   @IsString()
   @IsNotEmpty()
