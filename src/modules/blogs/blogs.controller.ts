@@ -16,7 +16,7 @@ import { BlogsService } from './blogs.service';
 import { CreateBlogDto } from './dto/create-blog.dto';
 import { FindAllBlogsDto } from './dto/find-all-blogs.dto';
 import { UpdateBlogDto } from './dto/update-blog.dto';
-import { User } from 'src/common/decorators';
+import { Public, User } from 'src/common/decorators';
 import { FindUserByIdResponse } from 'src/common/types/response.type';
 
 @ApiTags('Blogs')
@@ -53,6 +53,7 @@ export class BlogsController {
     };
   }
 
+  @Public()
   @Get(':id')
   async findOne(@Param('id', ParseIntPipe) id: number) {
     const blog = await this.blogsService.findOneById(id);
