@@ -36,6 +36,12 @@ export class BlogsService {
       orderBy: {
         updatedAt: 'desc',
       },
+      select: {
+        id: true,
+        title: true,
+        about: true,
+        createdAt: true,
+      },
       take: blogsFetchLimit,
       skip: (pageNumber - 1) * blogsFetchLimit,
     });
