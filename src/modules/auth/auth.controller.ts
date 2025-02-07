@@ -55,7 +55,7 @@ export class AuthController {
       );
       userId = user.id;
     }
-    const access_token = await this.authService.signJwt(userId);
+    const access_token = await this.authService.signJwt(userId, user.role.name);
     return {
       access_token,
     };

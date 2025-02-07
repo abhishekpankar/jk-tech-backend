@@ -24,7 +24,7 @@ export class AuthService {
       throw new UnauthorizedException();
     }
     await this.matchPassword(user.password, plainPassword);
-    const access_token = await this.signJwt(user.id);
+    const access_token = await this.signJwt(user.id, user.role.name);
     return {
       access_token,
     };
@@ -65,12 +65,12 @@ export class AuthService {
     };
   }
 
-  private makeJwtPayload(id: number) {
-    return { id };
+  private makeJwtPayload(id: number, role: string) {
+    return { id, role };
   }
 
-  signJwt(userId: number) {
-    const payload = this.makeJwtPayload(userId);
+  signJwt(userId: number, role: string) {
+    const payload = this.makeJwtPayload(userId, role);
     const JwtSignOptions = this.getJwtSignOptions();
     return this.jwtService.signAsync(payload, JwtSignOptions);
   }
