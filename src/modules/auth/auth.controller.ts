@@ -12,7 +12,7 @@ import { ApiExcludeEndpoint, ApiTags } from '@nestjs/swagger';
 import { Public, User } from 'src/common/decorators';
 import { UsersService } from 'src/modules/users/users.service';
 import { AuthService } from './auth.service';
-import { LoginDto } from './dto/login.dto';
+import { BrowserLoginDto, LoginDto } from './dto/login.dto';
 import { GoogleOAuthGuard } from './guards/google-oauth.guard';
 import { OAuth2Client } from 'google-auth-library';
 
@@ -65,7 +65,7 @@ export class AuthController {
 
   @Public()
   @Post('/browser/login')
-  async browserLogin(@Body() payload: Record<string, string>) {
+  async browserLogin(@Body() payload: BrowserLoginDto) {
     await this.verifyToken(payload.provider, payload);
     const user = await this.userService.findOneByEmail(payload.email);
     let userId: number = user?.id;
