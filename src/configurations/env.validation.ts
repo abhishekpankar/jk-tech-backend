@@ -45,15 +45,27 @@ class EnvironmentVariables {
 
   @IsString()
   @IsDefined()
-  OAUTH_CLIENT_ID: string;
+  GOOGLE_OAUTH_CLIENT_ID: string;
 
   @IsString()
   @IsDefined()
-  OAUTH_CLIENT_SECRET: string;
+  GOOGLE_OAUTH_CLIENT_SECRET: string;
 
   @IsString()
   @IsDefined()
-  OAUTH_REDIRECT_URI: string;
+  GOOGLE_OAUTH_REDIRECT_URI: string;
+
+  @IsString()
+  @IsDefined()
+  FACEBOOK_OAUTH_CLIENT_ID: string;
+
+  @IsString()
+  @IsDefined()
+  FACEBOOK_OAUTH_CLIENT_SECRET: string;
+
+  @IsString()
+  @IsDefined()
+  FACEBOOK_OAUTH_REDIRECT_URI: string;
 }
 
 export function validate(config: Record<string, unknown>) {

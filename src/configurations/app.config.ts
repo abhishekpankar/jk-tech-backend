@@ -12,9 +12,11 @@ export const appConfig = () => ({
     path: 'api',
   },
   oAuth: {
-    clientId: process.env.OAUTH_CLIENT_ID,
-    clientSecret: process.env.OAUTH_CLIENT_SECRET,
-    redirectUri: process.env.OAUTH_REDIRECT_URI,
+    google: {
+      clientId: process.env.GOOGLE_OAUTH_CLIENT_ID,
+      clientSecret: process.env.GOOGLE_OAUTH_CLIENT_SECRET,
+      redirectUri: process.env.GOOGLE_OAUTH_REDIRECT_URI,
+    },
   },
   users: {
     findAll: {

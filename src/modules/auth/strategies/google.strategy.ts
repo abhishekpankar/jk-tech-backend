@@ -7,9 +7,9 @@ import { UsersService } from 'src/modules/users/users.service';
 export class GoogleStrategy extends PassportStrategy(Strategy, 'google') {
   constructor(private readonly userService: UsersService) {
     super({
-      clientID: process.env.OAUTH_CLIENT_ID,
-      clientSecret: process.env.OAUTH_CLIENT_SECRET,
-      callbackURL: process.env.OAUTH_REDIRECT_URI,
+      clientID: process.env.GOOGLE_OAUTH_CLIENT_ID,
+      clientSecret: process.env.GOOGLE_OAUTH_CLIENT_SECRET,
+      callbackURL: process.env.GOOGLE_OAUTH_REDIRECT_URI,
       scope: ['email', 'profile'],
     });
   }
