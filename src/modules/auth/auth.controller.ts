@@ -66,36 +66,40 @@ export class AuthController {
   @Public()
   @Post('/browser/login')
   async browserLogin(@Body() payload: BrowserLoginDto) {
-    await this.verifyToken(payload.provider, payload);
-    const user = await this.userService.findOneByEmail(payload.email);
-    let userId: number = user?.id;
-    if (!user) {
-      const user = await this.userService.saveOAuthUser(
-        payload.email,
-        payload.name,
+    const { provider, user } = payload;
+    await this.verifyToken(provider, user);
+    const foundUser = await this.userService.findOneByEmail(user.email);
+    let userId: number = foundUser?.id;
+    if (!foundUser) {
+      const savedUser = await this.userService.saveOAuthUser(
+        user.email,
+        user.name,
         true,
       );
-      userId = user.id;
+      userId = savedUser.id;
     }
-    const access_token = await this.authService.signJwt(userId, user.role.name);
+    const access_token = await this.authService.signJwt(
+      userId,
+      foundUser.role.name,
+    );
     return {
       access_token,
     };
   }
 
-  private async verifyToken(provider: string, payload: any) {
+  private async verifyToken(provider: string, user: BrowserLoginDto['user']) {
     switch (provider) {
       case 'google':
         const oauth = new OAuth2Client(process.env.GOOGLE_OAUTH_CLIENT_ID);
         await oauth.verifyIdToken({
-          idToken: payload.token,
+          idToken: user.token,
         });
         break;
 
       case 'facebook':
         const profile = await (
           await fetch(
-            `https://graph.facebook.com/${payload.userId}?access_token=${payload.token}`,
+            `https://graph.facebook.com/${user.id}?access_token=${user.token}`,
           )
         ).json();
         if (profile.error) {
