@@ -99,6 +99,13 @@ export class UsersService {
         roleId: defaultRoleId,
         isVerified,
       },
+      select: {
+        email: true,
+        id: true,
+        name: true,
+        role: true,
+        isVerified: true,
+      },
     });
   }
 

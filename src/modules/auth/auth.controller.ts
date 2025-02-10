@@ -47,14 +47,14 @@ export class AuthController {
   @Public()
   @Get('google/redirect')
   async oAuthRedirect(@User() googleUser: Record<string, string>) {
-    const user = await this.userService.findOneByEmail(googleUser.email);
+    let user = await this.userService.findOneByEmail(googleUser.email);
     let userId: number = user?.id;
     if (!user) {
-      const user = await this.userService.saveOAuthUser(
+      user = (await this.userService.saveOAuthUser(
         googleUser.email,
         googleUser.name,
         true,
-      );
+      )) as any;
       userId = user.id;
     }
     const access_token = await this.authService.signJwt(userId, user.role.name);
