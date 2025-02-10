@@ -87,7 +87,7 @@ export class AuthController {
     };
   }
 
-  private async verifyToken(provider: string, user: BrowserLoginDto['user']) {
+  async verifyToken(provider: string, user: BrowserLoginDto['user']) {
     switch (provider) {
       case 'google':
         const oauth = new OAuth2Client(process.env.GOOGLE_OAUTH_CLIENT_ID);
