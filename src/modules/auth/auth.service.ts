@@ -20,7 +20,7 @@ export class AuthService {
   async login(email: string, plainPassword: string) {
     const nullableUser = await this.userService.findOneByEmail(email, true);
     const user = this.isEntityFound(nullableUser);
-    if (!user.password) {
+    if (!user?.password) {
       throw new UnauthorizedException();
     }
     await this.matchPassword(user.password, plainPassword);
@@ -42,14 +42,14 @@ export class AuthService {
     );
   }
 
-  private async matchPassword(hashedPassword: string, plainPassword: string) {
+  async matchPassword(hashedPassword: string, plainPassword: string) {
     const isMatch = await compare(plainPassword, hashedPassword);
     if (!isMatch) {
       throw new UnauthorizedException();
     }
   }
 
-  private isEntityFound<T>(entity: T) {
+  isEntityFound<T>(entity: T) {
     if (!entity) {
       throw new NotFoundException();
     }
