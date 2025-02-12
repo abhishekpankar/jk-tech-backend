@@ -36,6 +36,18 @@ The Blog Application is a full-featured content management system built with Nes
 $ npm install
 ```
 
+## Requirements
+```
+Node.js >= v18.0.0
+Nest.js >= v9.0.0
+```
+
+## Prerequisites
+1. Setup the environment variables using `env.template` file
+2. Setup `PostgreSQL` DB on local and add the connection string to environment variable `DATABASE_URL`
+3. Run `npx prisma db migrate` to 
+4. Run `npx prisma seed`. This will insert predefined roles into the database and a sample user.
+
 ## Running the app
 
 ### On Local
@@ -71,6 +83,8 @@ $ npm run test:e2e
 # test coverage
 $ npm run test:cov
 ```
+
+![alt text](image.png)
 
 ## Swagger API Documentation
 `https://{host}:{port}/api`
