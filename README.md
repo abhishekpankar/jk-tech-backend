@@ -46,7 +46,7 @@ Nest.js >= v9.0.0
 1. Setup the environment variables using `env.template` file
 2. Setup `PostgreSQL` DB on local and add the connection string to environment variable `DATABASE_URL`
 3. Run `npx prisma db migrate`
-4. Run `npx prisma seed`. This will insert predefined roles into the database and a sample user.
+4. Run `npx prisma seed`. This will insert predefined roles into the database and generate test users.
 
 ## Running the app
 
